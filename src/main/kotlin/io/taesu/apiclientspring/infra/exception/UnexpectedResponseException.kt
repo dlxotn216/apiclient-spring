@@ -13,4 +13,5 @@ class UnexpectedResponseException(
     cause: Throwable? = null,
     val statusCode: HttpStatusCode,
     val body: String,
+    val retryCount: Long = 0L
 ): RuntimeException(cause)
