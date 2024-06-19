@@ -26,7 +26,9 @@ class ApiProxyAspect(
     @Around("within(@io.taesu.apiclientspring.infra.config.aop.ApiProxy *)")
     fun beforeMethodsInAnnotatedClass(joinPoint: ProceedingJoinPoint): Any? {
         return joinPoint.proceed().apply {
-            if (this is Result<*>) { // not working, Result type is value class
+            // not working, return type is not Result<*>
+            // because it is value class.
+            if (this is Result<*>) {
                 this.recoverCatching {
                     apiExceptionTranslator.translate(it)
                 }
