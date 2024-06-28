@@ -82,7 +82,6 @@ class WebClientConfig {
             .doOnConnected {
                 it.addHandlerFirst(ReadTimeoutHandler(10000, TimeUnit.MILLISECONDS))
                 it.addHandlerFirst(WriteTimeoutHandler(100, TimeUnit.MILLISECONDS))
-
             }
     }
 

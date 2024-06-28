@@ -31,8 +31,9 @@ class UserService(private val userClient: UserClient) {
 
     fun merge(request: UserCreateRequest) {
         userClient.createForTest(request)
-            .recoverCatching {
-                if(it is ApiException && it.failResponse?.errorCode == "DUPLICATED_USER") {
+            .map { it.id }
+            .onFailure {
+                if(it is ApiException && it.failResponse.errorCode == "DUPLICATED_USER") {
                     // ignore
                 } else {
                     throw it
